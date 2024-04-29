@@ -10,14 +10,14 @@ router = APIRouter(
 )
 
 @router.post('/')
-def create_branch(request: ItemBase, db: Session = Depends(get_db)):
-    return db_item.create_branch(db, request)
+def create_item(request: ItemBase, db: Session = Depends(get_db)):
+    return db_item.create_item(db, request)
 
 @router.get('/')
 def get_all(db: Session = Depends(get_db)):
     return db_item.get_all(db)
 
 @router.get('/{id}')
-def get_client(id: int, db: Session = Depends(get_db)):
-    return db_item.get_branch(db, id)
+def get_item(id: int, db: Session = Depends(get_db)):
+    return db_item.get_item(db, id)
 

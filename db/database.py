@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 SQLALCHEMY_BASE_URL = 'sqlite:///./rental.db'
 
 engine = create_engine(
-    SQLALCHEMY_BASE_URL, connect_args={"check_same_thread": False}
+    SQLALCHEMY_BASE_URL, connect_args={"check_same_thread": False}, isolation_level='SERIALIZABLE'
 )
 
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
@@ -14,7 +14,11 @@ Base = declarative_base()
 
 def get_db():
     db = SessionLocal()
-    try: 
+    try:
         yield db
+        db.commit()  
+    except Exception as e:
+        db.rollback()  
+        raise e
     finally:
-        db.close()
+        db.close()  

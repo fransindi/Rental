@@ -18,6 +18,6 @@ def get_all(db: Session = Depends(get_db)):
     return db_branch.get_all(db)
 
 @router.get('/{id}')
-def get_client(id: int, db: Session = Depends(get_db)):
+def get_branch(id: int, db: Session = Depends(get_db)):
     return db_branch.get_branch(db, id)
 

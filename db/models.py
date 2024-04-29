@@ -16,6 +16,7 @@ class DbBranch(Base):
     name = Column(String)
     location = Column(String)
 
+    user = relationship('DbUser', back_populates='branch')
     movement = relationship('DbMovement', back_populates='branch')
 
 class DbItem(Base):
@@ -48,3 +49,15 @@ class DbMovement(Base):
     item = relationship('DbItem', back_populates='movement')
     branch = relationship('DbBranch', back_populates='movement')
     client = relationship('DbClient', back_populates='movement')
+
+class DbUser(Base):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String) 
+    email = Column(String)
+    branch_id = Column(Integer, ForeignKey('branch.id'))
+    password = Column(String)
+
+    branch = relationship('DbBranch', back_populates='user')
+
+

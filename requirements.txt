@@ -3,3 +3,6 @@ sqlalchemy
 python-multipart
 uvicorn
 pydantic
+bcrypt
+passlib
+python-jose
